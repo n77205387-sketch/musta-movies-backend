@@ -7,11 +7,16 @@ const JWT_SECRET = process.env.JWT_SECRET || 'musta-secret-key-2026';
 // In-memory storage (will clear on server restart - replace with MongoDB later)
 let uploads = [];
 
-// Get all uploads by type
-router.get('/:type', (req, res) => {
+// Get all uploads by type (PUBLIC - for community viewing)
+router.get('/public/:type', (req, res) => {
     const { type } = req.params;
     const filtered = uploads.filter(u => u.type === type);
     res.json(filtered);
+});
+
+// Get all public uploads
+router.get('/public', (req, res) => {
+    res.json(uploads);
 });
 
 // Get user uploads
